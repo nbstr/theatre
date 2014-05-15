@@ -1,50 +1,285 @@
+<!-- ALERT MODAL -->
+<div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" style="padding:20px;text-align:center;">
+          <h2 style="padding:20px;text-align:center;"></h2>
+          <p class="lead" style></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ERROR MODAL -->
+<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" style="padding:20px;text-align:center;">
+          <h2 style="padding:20px;text-align:center;" class="text-danger"></h2>
+          <p class="lead"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="screen">
 	<h1>Abonnements groupés pour le Théâtre de Namur</h1>
-	<small>THÉÂTRE - DANCE - CONCERTS</small>
 
 	<br><br>
 
 	<div class="block-reverse">
 		<div class="content">
-			<p class="lead">
-				Veuillez indiquer vos coordonnées
-			</p>
+			<h3 ng-click="set_tmp()">Veuillez indiquer vos coordonnées</h3><br>
 			
-			<form role="form" style="col-md-6">
+			<form role="form" id="formulaire">
 				<div class="form-group">
 					<label for="nom">Nom</label>
-					<input type="email" class="form-control" id="nom" placeholder="Entrez votre nom">
+					<input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" ng-model="user.lastname">
 				</div>
 				<div class="form-group">
 					<label for="prenom">Prénom</label>
-					<input type="email" class="form-control" id="prenom" placeholder="Entrez votre prénom">
+					<input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" ng-model="user.firstname">
 				</div>
+
 				<hr>
+
+				<div class="form-group">
+					<label for="phone">Numéro de téléphone</label>
+					<input type="text" class="form-control" id="phone" placeholder="Entrez votre numéro de téléphone" ng-model="user.phone">
+				</div>
 				<div class="form-group">
 					<label for="email">Adresse Email</label>
-					<input type="email" class="form-control" id="email" placeholder="Entrez votre adresse email">
+					<input type="email" class="form-control" id="email" placeholder="Entrez votre adresse email" ng-model="user.email">
 				</div>
 				<div class="form-group">
 					<label for="mot-de-passe">Mot de Passe</label>
-					<input type="password" class="form-control" id="mot-de-passe" placeholder="Choisissez un mot de passe">
+					<input type="{{(input_type) && 'text' || 'password'}}" class="form-control" id="mot-de-passe" placeholder="Choisissez un mot de passe" ng-model="user.password">
 				</div>
-				<!-- <div class="checkbox">
+				<div class="checkbox">
 					<label>
-						<input type="checkbox"> J'accepte les conditions.
+						<input type="checkbox" ng-init="input_type=false" ng-model="input_type"> Afficher le mot de passe
 					</label>
-				</div> -->
+				</div>
+
+				<hr>
+				
+				<h3>Adresse</h3><br>
+
+				<div class="form-group">
+					<label for="street">Rue</label>
+					<input type="text" class="form-control" id="street" placeholder="Entrez votre nom de rue/avenue" ng-model="user.street">
+				</div>
+				<div class="form-group">
+					<label for="num">Numéro (Boîte)</label>
+					<input type="text" class="form-control" id="num" placeholder="Entrez votre numéro" ng-model="user.num">
+				</div>
+				<div class="form-group">
+					<label for="city">Ville</label>
+					<input type="text" class="form-control" id="city" placeholder="Entrez votre ville" ng-model="user.city">
+				</div>
+				<div class="form-group">
+					<label for="zip">Code Postal</label>
+					<input type="text" class="form-control" id="zip" placeholder="Entrez votre code postal" ng-model="user.zip">
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" ng-init="user.country=false" ng-model="user.country"> Vous ne vivez pas en Belgique ?
+					</label>
+				</div>
+				<div class="form-group" ng-show="user.country">
+					<label for="country">Pays</label>
+					<input type="text" class="form-control" id="country" placeholder="Entrez votre pays" ng-model="user.pays">
+				</div>
 				<!-- <button type="submit" class="btn btn-default">Submit</button> -->
 			</form>
 		</div>
 	</div>
 
-	<br><br><br><br>
+	<div class="block">
+		<div class="content">
+			<h2>Personnes</h2>
+			<small>Veuillez indiquer le nombre de personnes concernées par cet abonnement ainsi que leur catégorie tarifaire</small>
+			
+			<br><br>
+
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="adultes" class="col-sm-2 control-label">Adultes</label>
+					<div class="col-sm-10">
+						<input
+							type="text"
+							class="form-control"
+							id="adultes"
+							placeholder="Indiquez le nombre d'adultes"
+							ng-model="FOLKS.adult"
+							ng-change="check_events()">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="adultes-30" class="col-sm-2 control-label">Moins de 30 ans</label>
+					<div class="col-sm-10">
+						<input
+							type="text"
+							class="form-control"
+							id="adultes-30"
+							placeholder="Indiquez le nombre d'adultes de moins de 30 ans"
+							ng-model="FOLKS.young"
+							ng-change="check_events()">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="student" class="col-sm-2 control-label">Étudiants</label>
+					<div class="col-sm-10">
+						<input
+							type="text"
+							class="form-control"
+							id="student"
+							placeholder="Indiquez le nombre d'étudiants"
+							ng-model="FOLKS.student"
+							ng-change="check_events()">
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	<div class="block-reverse">
+		<div class="content"></div>
+	</div>
 
 	<div class="block">
 		<div class="content">
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="col-md-4">
+							<h3>THÉÂTRE - DANCE - CONCERTS</h3>
+							<small>Sélectionnez les spectacles et/ou activités de votre abonnement</small>
+						</th>
+						<th class="col-md-4">
+							<h3>DATES</h3>
+							<small>Cochez la date de votre choix</small>
+						</th>
+						<th class="col-md-4">
+							<h3>TARIFS</h3>
+							<small>Cochez votre classe tarifaire</small>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="event in EVENTS">
+						<!-- SELECTIONNER PIECE -->
+						<td>
+							<div class="checkbox">
+								<label>
+									<input
+										type="checkbox"
+										ng-model="ORDER['e_' + event._id].ordered"
+										ng-change="clear_event(event._id)">
+										{{event.title}} <span class="glyphicon glyphicon-star" ng-show="event.featured"></span>
+								</label>
+							</div>
+						</td>
+						<!-- SELECTIONNER DATES -->
+						<td>
+							<span class="radio" ng-repeat="date in event.dates">
+								<label>
+									<input
+										type="radio"
+										value="{{date}}"
+										ng-model="ORDER['e_' + event._id].date"
+										name="date-radio-{{event._id}}"
+										ng-change="check_event(event._id)">
+							   		{{date}}
+								</label>
+							</span>
+						</td>
+						<!-- SELECTIONNER CLASSE -->
+						<td>
+							<div class="btn-group">
+								<button
+									type="button"
+									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'B') && ' active' || ''}}"
+									ng-click="set_class(event._id, 'B')">
+									Normal</button>
+								<button
+									type="button"
+									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'A') && ' active' || ''}}"
+									ng-click="set_class(event._id, 'A')">
+									Première Classe</button>
+							</div>
+							
+							<span ng-show="ORDER['e_' + event._id].ordered">
+								<hr>
+								<small>
+									<span ng-show="nmbr(FOLKS.adult)">
+										Adulte{{(nmbr(FOLKS.adult)>1) && 's' || ''}}: 
+										<strong>{{ nmbr(FOLKS.adult) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].adult) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.adult)>1">
+											({{FOLKS.adult}} x {{event.prices['class' + ORDER['e_' + event._id].class].adult}}€)
+										</span><br>
+									</span>
+									<span ng-show="nmbr(FOLKS.young)">
+										Moins de 30 ans: 
+										<strong>{{ nmbr(FOLKS.young) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].young) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.young)>1">
+											({{FOLKS.young}} x {{event.prices['class' + ORDER['e_' + event._id].class].young}}€)
+										</span><br>
+									</span>
+									<span ng-show="nmbr(FOLKS.student)">
+										Étudiant{{(nmbr(FOLKS.student)>1) && 's' || ''}}: 
+										<strong>{{ nmbr(FOLKS.student) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].student) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.student)>1">
+											({{FOLKS.student}} x {{event.prices['class' + ORDER['e_' + event._id].class].student}}€)
+										</span><br>
+									</span>
+								</small>
+								<hr>
+								<h4>{{ nmbr(FOLKS.adult) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].adult) + nmbr(FOLKS.young) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].young) + nmbr(FOLKS.student) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].student) }}€</h4>
+							</span>
+
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<hr>
+			<h1 ng-init="total_order=0">TOTAL : {{total_order}}€</h1>
+			<hr>
+			<button class="btn btn-default" ng-click="form_validation()">Commander</button>
+
+		</div>
+	</div>
+
+	<div class="block-reverse">
+		<div class="content">
+			powered by M4KE.IT
+			<br>
+			<small>contact: <a href="mailto:alex@m4ke.it">alex@m4ke.it</a></small>
+		</div>
+	</div>
+
+</div>
+<div class="thx-screen" style="display:none">
+	<div class="block">
+		<div class="content">
+			<h1 style="text-align:center;">Votre demande a correctement été enregistrée</h1>
 			<p class="lead">
-				Sélectionnez les spectacles et/ou activités de votre abonnement
+				<hr>
+				Nous vous remercions pour votre commande groupée. Vous allez recevoir un email de confirmation pour vous rappeller votre commande. Afin de valider votre commande il vous faudra effectuer un virement sur le compte n° <strong id="account-number"></strong> d'un montant de <strong id="account-value"></strong>. N'oubliez pas d'indiquer vos coordonnées en communication afin que nous puissions vous identifier et répondre ainsi à votre demande.
 			</p>
+			<br>
+			<h4 style="text-align:right;">
+				- le Théâtre de Namur
+			</h4>
 		</div>
 	</div>
 </div>

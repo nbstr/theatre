@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 // DB CONFIG
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/parking", {native_parser:true});
+var db = mongo.db("mongodb://localhost:27017/theatre", {native_parser:true});
 
 // ROUTES IMPORT
 var routes = require('./routes/index');
@@ -34,11 +34,6 @@ var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 
-var io = require('socket.io').listen(server);
-
-// SOCKETS CONTROLLER
-require('./socket')(io, db);
-
 // ADD HEADERS
 app.use(function (req, res, next) {
 
@@ -61,7 +56,6 @@ app.use(function (req, res, next) {
 // DB & SOCKET ACCESS
 app.use(function(req,res,next){
     req.db = db; // db accessible to our router
-    req.io = io; // socket io accessible to our router
     next();
 });
 

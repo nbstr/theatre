@@ -1,39 +1,38 @@
 var express = require('express');
 var router = express.Router();
 
-var $models = {
-	user:['username', 'email']
-};
-var $http = {
-	filter:function (type, data){
-		var model = $models[type],
-			post_data = {};
-		for(var element in model){
-			if(data[model[element]] != undefined){
-				post_data[model[element]] = data[model[element]];
-			}
-	    }
-	    return post_data;
-	}
-};
+// POST :: add a new user & order
+router.post('/order', function(req, res) {
 
-// POST :: alert controller
-router.post('report', function(req, res) {
-    req.io.sockets.emit('alert:controller', req.body);
-    res.json({
-        error:false
+    var db = req.db;
+    var user = req.body.user;
+
+    user.group = req.body.group;
+
+    db.collection('users').insert(user, function(error, result){
+        var new_user = result[0];
+        var order = {
+            user:new_user._id,
+            orders:req.body.orders
+        };
+        db.collection('orders').insert(order, function(error, result){
+            res.json({
+                error:error,
+                response:result
+            });
+        });
     });
 });
 
-// GET :: get a list of all users
-router.get('', function(req, res) {
-    res.render('index', { title: 'Parking API' });
-    // var db = req.db;
-    // db.collection('userlist').find().toArray(function (error, items) {
-    //     res.json(items);
-    // });
+// GET :: get a list of all events
+router.get('/events', function(req, res) {
+    var db = req.db;
+    db.collection('events').find().toArray(function (error, items) {
+        res.json(items);
+    });
 });
 
+/*
 // GET :: get one user
 router.get('/:id', function(req, res) {
     var db = req.db;
@@ -74,6 +73,7 @@ router.delete('/:id', function(req, res) {
         res.send((result === 1) ? { msg: 'success', result:result } : { msg:'error: ' + error });
     });
 });
+*/
 
 
 module.exports = router;
