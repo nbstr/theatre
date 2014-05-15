@@ -1,0 +1,21 @@
+body{
+	padding-top: 60px;
+}
+.screen{
+	text-align: center;
+}
+.block-reverse{
+	margin-top: 50px;
+	background-color: #EFEFEF;
+	/*color:#FFF;*/
+}
+.block{
+	/*background-color: #2C2C2C;
+	color:#FFF;*/
+}
+.content{
+	text-align: left;
+	max-width:1000px;
+	margin: auto;
+	padding: 50px;
+}
