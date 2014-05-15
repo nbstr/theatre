@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 // DB CONFIG
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://localhost:27017/theatre", {native_parser:true});
+var db = mongo.db("mongodb://localhost:27019/theatre", {native_parser:true});
 
 // ROUTES IMPORT
 var routes = require('./routes/index');
