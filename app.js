@@ -87,6 +87,9 @@ app.post('/order', function(req, res) {
     user.group = req.body.group;
 
     db.collection('users').insert(user, function(error, result){
+        if(error){
+            res.json(error);
+        }
         var new_user = result[0];
         var order = {
             user:new_user._id,
