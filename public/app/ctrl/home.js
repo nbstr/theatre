@@ -77,8 +77,10 @@ function HomeCtrl($scope, $http, $rootScope){
 		$scope.check_total();
 	};
 	$scope.check_events = function(){
-		for(var e in $scope.EVENTS){
-			$scope.check_event($scope.EVENTS[e]._id);
+		for(var e in $scope.ORDER){
+			if($scope.ORDER[e].ordered){ // IF ORDERED
+				$scope.check_event($scope.ORDER[e].event_id);
+			}
 		}
 	};
 	$scope.clear_event = function(id){
@@ -187,7 +189,8 @@ function HomeCtrl($scope, $http, $rootScope){
 				adult:$rootScope.nmbr($scope.FOLKS.adult),
 				young:$rootScope.nmbr($scope.FOLKS.young),
 				student:$rootScope.nmbr($scope.FOLKS.student)
-			}
+			},
+			total:$scope.total_order
 		};
 		for(var e in $scope.ORDER){
 			if($scope.ORDER[e].ordered){ // IF ORDERED
@@ -200,6 +203,7 @@ function HomeCtrl($scope, $http, $rootScope){
 								event_id:evnt._id,
 								title:evnt.title,
 								date:$scope.ORDER[e].date,
+								class:$scope.ORDER[e].class,
 								tickets:[]
 							};
 

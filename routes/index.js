@@ -16,6 +16,20 @@ router.post('/order', function(req, res) {
             orders:req.body.orders
         };
         db.collection('orders').insert(order, function(error, result){
+            console.log(req.mailer);
+            app.mailer.send('email', {
+                to: 'cookieklub@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field. 
+                subject: 'Confirmation de commande', // REQUIRED.
+                otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
+                }, function (err) {
+                    if (err) {
+                      // handle error
+                      console.log(err);
+                      res.send('There was an error sending the email');
+                      return;
+                    }
+                    res.send('Email Sent');
+                });
             res.json({
                 error:error,
                 response:result

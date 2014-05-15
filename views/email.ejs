@@ -1,0 +1,29 @@
+<br>
+<h1 style="text-align:center;">Votre demande a correctement été enregistrée</h1>
+<br>
+<hr>
+<br>
+<p style="font-size:1.2em;line-height:1.5em;">
+    Nous vous remercions pour votre commande groupée. Vous allez recevoir un email de confirmation pour vous rappeller votre commande. Afin de valider votre commande il vous faudra effectuer un virement sur le compte n° <strong>BE33 0358 5119 4946</strong> au nom de Rotary Namur d'un montant de <strong><%= amount %>€</strong>. N'oubliez pas d'indiquer vos coordonnées en communication afin que nous puissions vous identifier et répondre ainsi à votre demande.
+</p>
+<br>
+<h4 style="text-align:right;">- le Théâtre de Namur</h4>
+<br>
+<h2>Rappel de commande</h2>
+<%
+orders.forEach(function(order, index){
+%>
+
+<p>
+    <strong><%= order.title %></strong> (date: <%= order.date %>) pour <%= people %> <%= order.classe %>
+</p>
+
+<%
+})
+%>
+<br>
+<br>
+<br>
+powered by M4KE.IT
+<br>
+<small>contact: <a href="mailto:alex@m4ke.it">alex@m4ke.it</a></small>
