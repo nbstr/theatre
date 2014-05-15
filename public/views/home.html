@@ -56,15 +56,6 @@
 					<label for="email">Adresse Email</label>
 					<input type="email" class="form-control" id="email" placeholder="Entrez votre adresse email" ng-model="user.email">
 				</div>
-				<div class="form-group">
-					<label for="mot-de-passe">Mot de Passe</label>
-					<input type="{{(input_type) && 'text' || 'password'}}" class="form-control" id="mot-de-passe" placeholder="Choisissez un mot de passe" ng-model="user.password">
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" ng-init="input_type=false" ng-model="input_type"> Afficher le mot de passe
-					</label>
-				</div>
 
 				<hr>
 				
@@ -204,16 +195,17 @@
 						<!-- SELECTIONNER CLASSE -->
 						<td>
 							<div class="btn-group">
-								<button
-									type="button"
-									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'B') && ' active' || ''}}"
-									ng-click="set_class(event._id, 'B')">
-									Normal</button>
+								
 								<button
 									type="button"
 									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'A') && ' active' || ''}}"
 									ng-click="set_class(event._id, 'A')">
-									Première Classe</button>
+									Cat 1</button>
+								<button
+									type="button"
+									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'B') && ' active' || ''}}"
+									ng-click="set_class(event._id, 'B')">
+									Cat 2</button>
 							</div>
 							
 							<span ng-show="ORDER['e_' + event._id].ordered">

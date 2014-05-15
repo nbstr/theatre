@@ -5,7 +5,6 @@ function HomeCtrl($scope, $http, $rootScope){
 			lastname:'Kamel',
 			phone:'0488581404',
 			email:'nab.kml@gmail.com',
-			password:'bambou',
 			street:'Rue Bonne Esperance',
 			num:'4, boite 202',
 			city:'Louvain-la-Neuve',
@@ -108,7 +107,6 @@ function HomeCtrl($scope, $http, $rootScope){
                 v($scope.user.lastname, 'req|min:2', 'Nom'),
                 v($scope.user.phone, 'req', 'Numéro de téléphone'),
                 v($scope.user.email, 'req|email', 'Adresse Email'),
-                v($scope.user.password, 'req|min:6', 'Mot de passe'),
                 v($scope.user.street, 'req|min:2', 'Rue'),
                 v($scope.user.num, 'req', 'Numéro de propriété'),
                 v($scope.user.city, 'req|min:2', 'Ville'),
@@ -175,7 +173,6 @@ function HomeCtrl($scope, $http, $rootScope){
 				lastname:d.lastname,
 				phone:d.phone,
 				email:d.email,
-				password:d.password,
 				address:{
 					street:d.street,
 					number:d.num,
