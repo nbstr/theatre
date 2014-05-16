@@ -1,14 +1,14 @@
 function HomeCtrl($scope, $http, $rootScope){
 	$scope.set_tmp = function(){
 		$scope.user = {
-			firstname:'Nabil',
-			lastname:'Kamel',
-			phone:'0488581404',
+			firstname:'firstname',
+			lastname:'lastname',
+			phone:'0000000000',
 			email:'nab.kml@gmail.com',
-			street:'Rue Bonne Esperance',
-			num:'4, boite 202',
-			city:'Louvain-la-Neuve',
-			zip:'1348'
+			street:'Rue XXXXXXXXXXX',
+			num:'00, 000',
+			city:'Bruxelles',
+			zip:'1190'
 		};
 	};
 	$scope.get_events = function(){
@@ -135,9 +135,7 @@ function HomeCtrl($scope, $http, $rootScope){
 			$rootScope.error('Veuillez sélectionner au moins une personne pour cet abonnement');
 		}
 		else{
-			$scope.post_order();
 			// AT LEAST 5 TICKETS AND 2 FEATURED
-			/*
 			var min_orders = 5, min_featured = 2;
 			var count = 0, featured = 0;
 			for(var e in $scope.ORDER){
@@ -162,7 +160,6 @@ function HomeCtrl($scope, $http, $rootScope){
 			else{
 				$scope.post_order();
 			}
-			*/
 		}		
 	};
 	$scope.set_post_data = function(){

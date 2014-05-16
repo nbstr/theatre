@@ -165,7 +165,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="event in EVENTS">
+					<tr ng-repeat="event in EVENTS" class="{{(ORDER['e_' + event._id].ordered) && 'info' || ''}}">
 						<!-- SELECTIONNER PIECE -->
 						<td>
 							<div class="checkbox">
@@ -270,7 +270,7 @@
 			</p>
 			<br>
 			<h4 style="text-align:right;">
-				- le Théâtre de Namur
+				- Rotary Namur
 			</h4>
 		</div>
 	</div>
