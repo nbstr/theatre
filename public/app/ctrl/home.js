@@ -6,7 +6,7 @@ function HomeCtrl($scope, $http, $rootScope){
 			console.log(response);
 		})
 		.then(function(response){
-			console.log(response);
+			//console.log(response);
 			$scope.set_order(response.data);
 		});
 	};
@@ -211,7 +211,7 @@ function HomeCtrl($scope, $http, $rootScope){
 
 			var data = $scope.set_post_data();
 
-			console.log(data);
+			//console.log(data);
 
 			$http.post('/order', data)
 			.error(function(response){
@@ -219,7 +219,7 @@ function HomeCtrl($scope, $http, $rootScope){
 				$rootScope.error('Une erreur est survenue, veuillez réessayer plus tard.');
 			})
 			.then(function(response){
-				console.log(response);
+				//console.log(response);
 				$scope.post_success();
 			 });
 		}
