@@ -355,6 +355,9 @@
 			<hr>
 			<h1 ng-init="total_order=0">TOTAL : {{total_order}}€</h1>
 			<hr>
+			<label for="demande">Demande particulière</label>
+			<textarea class="form-control" id="demande" rows="5" placeholder="Entrez ici votre demande particulière" ng-model="user.comment"></textarea>
+			<hr>
 			<button class="btn btn-default" ng-click="form_validation()">Commander</button>
 
 		</div>
@@ -375,7 +378,7 @@
 			<h1 style="text-align:center;">Votre demande a correctement été enregistrée</h1>
 			<p class="lead">
 				<hr>
-				Nous vous remercions pour votre commande groupée. Vous allez recevoir un email de confirmation pour vous rappeller votre commande. Afin de valider votre commande il vous faudra effectuer un virement sur le compte n° <strong>BE33 0358 5119 4946</strong> au nom de Rotary Namur d'un montant de <strong id="account-value"></strong>. N'oubliez pas d'indiquer vos coordonnées en communication afin que nous puissions vous identifier et répondre ainsi à votre demande.
+				Nous vous remercions pour votre réservation au prochain programme du THEATRE DE NAMUR. Vous allez recevoir un email de confirmation pour vous rappeller votre commande. Afin de valider votre commande il vous faudra effectuer un virement sur le compte n° <strong>BE33 0358 5119 4946</strong> au nom de Rotary Namur d'un montant de <strong id="account-value"></strong>. N'oubliez pas d'indiquer vos coordonnées en communication afin que nous puissions vous identifier et répondre ainsi à votre demande.
 			</p>
 			<br>
 		</div>

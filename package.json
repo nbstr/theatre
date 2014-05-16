@@ -17,6 +17,7 @@
         "monk": "*",
         "nodemon": "*",
         "express-mailer": "~0.2.3",
-        "ejs": "*"
+        "ejs": "*",
+        "escape-html": "*"
     }
 }

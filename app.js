@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mailer = require('express-mailer');
+var escape = require('escape-html');
 
 
 // DB CONFIG
@@ -84,6 +85,10 @@ app.post('/order', function(req, res) {
     var db = req.db;
     var user = req.body.user;
 
+    // escape HTML
+    user.comment = escape(user.comment);
+
+
     user.group = req.body.group;
 
     db.collection('users').insert(user, function(error, result){
@@ -96,6 +101,7 @@ app.post('/order', function(req, res) {
             orders:req.body.orders
         };
         for(o in req.body.orders){
+            req.body.orders[o].comment = escape(req.body.orders[o].comment); // escape HTML
             req.body.orders[o].classe = (req.body.orders[o].tickets[0].class == 'A') ? 'en Première classe' : '';
         }
         var people = 0;
@@ -111,12 +117,23 @@ app.post('/order', function(req, res) {
         }
         db.collection('orders').insert(order, function(error, result){
             app.mailer.send('email', {
-                to: req.body.user.email + ',alexis.bedoret@gmail.com,emmanuel.bedoret@skynet.be', // REQUIRED. This can be a comma delimited string just like a normal email to field. 
-                subject: 'Confirmation de commande', // REQUIRED.
+                to: req.body.user.email, // REQUIRED. This can be a comma delimited string just like a normal email to field. 
+                subject: 'Confirmation de votre réservation au prochain programme du THEATRE DE NAMUR', // REQUIRED.
                 amount:req.body.total,
                 orders:req.body.orders,
                 people:people
                 }, function (err) {
+                    // COPY
+                    app.mailer.send('email', {
+                        to:'alexis.bedoret@gmail.com,emmanuel.bedoret@skynet.be', // REQUIRED
+                        subject: req.body.user.email + ': Confirmation de réservation au prochain programme du THEATRE DE NAMUR', // REQUIRED.
+                        amount:req.body.total,
+                        orders:req.body.orders,
+                        people:people
+                        }, function (err){
+                            console.log(err);
+                        });
+
                     if (err) {
                       // handle error
                       console.log(err);
@@ -124,7 +141,7 @@ app.post('/order', function(req, res) {
                       return;
                     }
                     res.send('Email Sent');
-                });
+            });
             res.json({
                 error:error,
                 response:result

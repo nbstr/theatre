@@ -164,7 +164,8 @@ function HomeCtrl($scope, $http, $rootScope){
 					city:d.city,
 					zip:d.zip,
 					country:(d.pays) ? d.pays : 'Belgique'
-				}
+				},
+				comment:$scope.user.comment
 			},
 			orders:[],
 			group:{
@@ -186,6 +187,7 @@ function HomeCtrl($scope, $http, $rootScope){
 								title:evnt.title,
 								date:$scope.ORDER[e].date,
 								class:$scope.ORDER[e].class,
+								comment:$scope.user.comment,
 								tickets:[]
 							};
 
