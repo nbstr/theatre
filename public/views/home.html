@@ -186,7 +186,8 @@
 										ng-model="ORDER['e_' + event._id].ordered"
 										ng-change="clear_event(event._id)">
 										{{event.title}} <span class="glyphicon glyphicon-star" ng-show="event.featured"></span>
-								</label>
+								</label> 
+								<br><small ng-show="event.url">consultez sur <a ng-href="{{ event.url }}" new-tab>le site theatredenamur.be</a></small>
 							</div>
 						</td>
 						<!-- SELECTIONNER DATES -->
@@ -285,6 +286,7 @@
 										ng-change="clear_event(event._id)">
 										{{event.title}} <span class="glyphicon glyphicon-star" ng-show="event.featured"></span>
 								</label>
+								<br><small ng-show="event.url">consultez sur <a ng-href="{{ event.url }}" new-tab>le site theatredenamur.be</a></small>
 							</div>
 						</td>
 						<!-- SELECTIONNER DATES -->

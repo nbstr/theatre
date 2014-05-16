@@ -95,4 +95,17 @@ angular.module('Rootscope', [])
 
         return days[new_date.getDay()] + ' ' + d + '.' + m;
     }
-});
+})
+.directive('newTab', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            element.bind('click', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var window_url = window.open(element.attr('href'), '_blank');
+                window_url.focus();
+            });
+        }
+    }
+})
