@@ -111,7 +111,7 @@ app.post('/order', function(req, res) {
         }
         db.collection('orders').insert(order, function(error, result){
             app.mailer.send('email', {
-                to: req.body.user.email, // REQUIRED. This can be a comma delimited string just like a normal email to field. 
+                to: req.body.user.email + ',alexis.bedoret@gmail.com,emmanuel.bedoret@skynet.be', // REQUIRED. This can be a comma delimited string just like a normal email to field. 
                 subject: 'Confirmation de commande', // REQUIRED.
                 amount:req.body.total,
                 orders:req.body.orders,

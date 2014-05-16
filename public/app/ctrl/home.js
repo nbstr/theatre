@@ -1,16 +1,4 @@
 function HomeCtrl($scope, $http, $rootScope){
-	$scope.set_tmp = function(){
-		$scope.user = {
-			firstname:'firstname',
-			lastname:'lastname',
-			phone:'0000000000',
-			email:'nab.kml@gmail.com',
-			street:'Rue XXXXXXXXXXX',
-			num:'00, 000',
-			city:'Bruxelles',
-			zip:'1190'
-		};
-	};
 	$scope.get_events = function(){
 		// GET DATA THEN SEND IT TO SET DATA
 		$http.get('/events')
