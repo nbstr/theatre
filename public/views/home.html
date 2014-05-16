@@ -147,6 +147,10 @@
 	<div class="block">
 		<div class="content">
 
+			<span class="glyphicon glyphicon-star"></span> Sélections du Théâtre
+			<br>
+			<span class="glyphicon glyphicon-certificate"></span> Jeudistoire
+
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -165,7 +169,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="event in EVENTS" class="{{(ORDER['e_' + event._id].ordered) && 'info' || ''}}">
+					<tr ng-repeat="event in EVENTS" class="{{(ORDER['e_' + event._id].ordered) && 'info' || ''}}" ng-show="event.category=='theatre'">
 						<!-- SELECTIONNER PIECE -->
 						<td>
 							<div class="checkbox">
@@ -188,7 +192,105 @@
 										ng-model="ORDER['e_' + event._id].date"
 										name="date-radio-{{event._id}}"
 										ng-change="check_event(event._id)">
-							   		{{date}}
+							   		{{date | dte}} <span class="glyphicon glyphicon-certificate" ng-show="event.jeudistoire == date"></span>
+								</label>
+							</span>
+						</td>
+						<!-- SELECTIONNER CLASSE -->
+						<td>
+							<div class="btn-group">
+								
+								<button
+									type="button"
+									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'A') && ' active' || ''}}"
+									ng-click="set_class(event._id, 'A')">
+									Cat 1</button>
+								<button
+									type="button"
+									class="btn btn-default{{ (ORDER['e_' + event._id].class == 'B') && ' active' || ''}}"
+									ng-click="set_class(event._id, 'B')">
+									Cat 2</button>
+							</div>
+							
+							<span ng-show="ORDER['e_' + event._id].ordered">
+								<hr>
+								<small>
+									<span ng-show="nmbr(FOLKS.adult)">
+										Adulte{{(nmbr(FOLKS.adult)>1) && 's' || ''}}: 
+										<strong>{{ nmbr(FOLKS.adult) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].adult) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.adult)>1">
+											({{FOLKS.adult}} x {{event.prices['class' + ORDER['e_' + event._id].class].adult}}€)
+										</span><br>
+									</span>
+									<span ng-show="nmbr(FOLKS.young)">
+										Moins de 30 ans: 
+										<strong>{{ nmbr(FOLKS.young) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].young) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.young)>1">
+											({{FOLKS.young}} x {{event.prices['class' + ORDER['e_' + event._id].class].young}}€)
+										</span><br>
+									</span>
+									<span ng-show="nmbr(FOLKS.student)">
+										Étudiant{{(nmbr(FOLKS.student)>1) && 's' || ''}}: 
+										<strong>{{ nmbr(FOLKS.student) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].student) }}€</strong> 
+										<span ng-show="nmbr(FOLKS.student)>1">
+											({{FOLKS.student}} x {{event.prices['class' + ORDER['e_' + event._id].class].student}}€)
+										</span><br>
+									</span>
+								</small>
+								<hr>
+								<h4>{{ nmbr(FOLKS.adult) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].adult) + nmbr(FOLKS.young) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].young) + nmbr(FOLKS.student) * nmbr(event.prices['class' + ORDER['e_' + event._id].class].student) }}€</h4>
+							</span>
+
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+
+			<br><br>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="col-md-4">
+							<h3>PHILHARMONIQUE</h3>
+							<small>Sélectionnez les spectacles et/ou activités de votre abonnement</small>
+						</th>
+						<th class="col-md-4">
+							<h3>DATES</h3>
+							<small>Cochez la date de votre choix</small>
+						</th>
+						<th class="col-md-4">
+							<h3>TARIFS</h3>
+							<small>Cochez votre classe tarifaire</small>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="event in EVENTS" class="{{(ORDER['e_' + event._id].ordered) && 'info' || ''}}" ng-show="event.category=='philharmonique'">
+						<!-- SELECTIONNER PIECE -->
+						<td>
+							<div class="checkbox">
+								<label>
+									<input
+										type="checkbox"
+										ng-model="ORDER['e_' + event._id].ordered"
+										ng-change="clear_event(event._id)">
+										{{event.title}} <span class="glyphicon glyphicon-star" ng-show="event.featured"></span>
+								</label>
+							</div>
+						</td>
+						<!-- SELECTIONNER DATES -->
+						<td>
+							<span class="radio" ng-repeat="date in event.dates">
+								<label>
+									<input
+										type="radio"
+										value="{{date}}"
+										ng-model="ORDER['e_' + event._id].date"
+										name="date-radio-{{event._id}}"
+										ng-change="check_event(event._id)">
+							   		{{date | dte}} <span class="glyphicon glyphicon-certificate" ng-show="event.jeudistoire == date"></span>
 								</label>
 							</span>
 						</td>

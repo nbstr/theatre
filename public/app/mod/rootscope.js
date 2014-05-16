@@ -70,4 +70,17 @@ angular.module('Rootscope', [])
         $rootScope.posted_order = false;
     };
     $rootScope.init();
+})
+.filter('dte', function(){
+    return function(date){
+        if(date == undefined){return '';}
+        // INPUT YYYY-MM-DD
+        var days = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'];
+        var y = date.split('-')[0],
+            m = date.split('-')[1],
+            d = date.split('-')[2];
+        var new_date = new Date(y, m, d, 0, 0, 0, 0);
+
+        return days[new_date.getDay()] + ' ' + d + '.' + m;
+    }
 });
