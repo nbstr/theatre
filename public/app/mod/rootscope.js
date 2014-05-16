@@ -79,7 +79,19 @@ angular.module('Rootscope', [])
         var y = date.split('-')[0],
             m = date.split('-')[1],
             d = date.split('-')[2];
-        var new_date = new Date(y, m, d, 0, 0, 0, 0);
+        var new_date = new Date(y, parseInt(m)-1, d);
+
+        // console.log({
+        //     input:{
+        //         d:d,
+        //         m:m,
+        //         y:y
+        //     },
+        //     new_date:{
+        //         date:new_date,
+        //         week_day:new_date.getDay()
+        //     }
+        // });
 
         return days[new_date.getDay()] + ' ' + d + '.' + m;
     }
