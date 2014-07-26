@@ -1,0 +1,13 @@
+files:
+  - /data/alarmclock/logs/access.log
+  - /data/alarmclock/logs/errors.log
+  - /var/log/monit.log
+  - /var/log/redis/redis-server.log
+  - /var/log/mongodb/mongodb.log
+  - /var/log/auth.log
+  - /var/log/mail.log
+  - /var/log/mail.err
+
+destination:
+  host: logs.papertrailapp.com
+  port: 46626   # NOTE: change to your Papertrail port

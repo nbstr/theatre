@@ -1,0 +1,30 @@
+#!monit
+set daemon 5
+set logfile /var/log/monit.log
+set alert philippe.modard@gmail.com
+
+set httpd port 2812
+    allow admin:b2a992bb35173ef13c6023e733f6b46f
+
+check system alarmclock
+  if loadavg (5min) > 1.6 then alert
+  if memory usage > 80% then alert
+  if cpu usage (user) > 90% then alert
+
+check process plusnode with pidfile "/tmp/alarmclock.pid"
+    if 3 restarts within 5 cycles then timeout
+    start program = "/sbin/start alarmclock" with timeout 20 seconds
+    stop program  = "/sbin/stop alarmclock"
+    if failed port 443 type tcpssl protocol HTTP
+        request /status?monit=1
+        with timeout 5 seconds
+        for 5 cycles
+        then restart
+    if cpu usage > 90% for 5 cycles then restart
+    if changed pid 2 times within 5 cycles then alert
+    if memory usage > 80 percent then alert
+    if cpu usage is greater than 75 percent for 5 cycles then alert
+    if cpu usage > 90% for 5 cycles then restart
+    
+check device disk1 with path /dev/vda
+   if space usage > 90 percent then alert
