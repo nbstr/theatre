@@ -156,9 +156,9 @@ app.post('/api/brassmonkey/newsletter', function(req, res) {
     var user = req.body.user;
 
     // escape HTML
-    user.firstname = escape(user.firstname);
-    user.lastname = escape(user.lastname);
-    user.email = escape(user.email);
+    user.firstname = escape((user.firstname) ? user.firstname : 'test');
+    user.lastname = escape((user.lastname) ? user.lastname : 'test');
+    user.email = escape((user.email) ? user.email : 'test');
 
     db.collection('bm_users').insert(user, function(error, result){
 
