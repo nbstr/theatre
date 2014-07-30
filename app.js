@@ -53,8 +53,7 @@ mailer.extend(app, {
 app.use(function (req, res, next) {
 
     // ALLOW CONNECTION
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
-    res.setHeader('Access-Control-Allow-Origin', 'http://188.226.249.240:9989');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // ALLOW METHODS
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -146,6 +145,28 @@ app.post('/order', function(req, res) {
                 error:error,
                 response:result
             });
+        });
+    });
+});
+
+// POST :: add a new user // BRASS MONKEY - TMP
+app.post('/api/brassmonkey/newsletter', function(req, res) {
+
+    var db = req.db;
+    var user = req.body.user;
+
+    // escape HTML
+    user.firstname = escape(user.firstname);
+    user.lastname = escape(user.lastname);
+    user.email = escape(user.email);
+
+    db.collection('bm_users').insert(user, function(error, result){
+        if(error){
+            res.json(error);
+        }
+        res.json({
+            error:error,
+            response:result
         });
     });
 });
