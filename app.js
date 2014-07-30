@@ -155,6 +155,8 @@ app.post('/api/brassmonkey/newsletter', function(req, res) {
     var db = req.db;
     var user = req.body.user;
 
+    console.log('coucou');
+
     // escape HTML
     user.firstname = escape(user.firstname);
     user.lastname = escape(user.lastname);
