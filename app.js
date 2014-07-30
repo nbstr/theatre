@@ -161,9 +161,6 @@ app.post('/api/brassmonkey/newsletter', function(req, res) {
     user.email = escape(user.email);
 
     db.collection('bm_users').insert(user, function(error, result){
-        if(error){
-            res.json(error);
-        }
         res.json({
             error:error,
             response:result
