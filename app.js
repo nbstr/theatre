@@ -155,14 +155,17 @@ app.post('/api/brassmonkey/newsletter', function(req, res) {
     var db = req.db;
     var user = req.body.user;
 
-    console.log('coucou');
-
     // escape HTML
     user.firstname = escape(user.firstname);
     user.lastname = escape(user.lastname);
     user.email = escape(user.email);
 
     db.collection('bm_users').insert(user, function(error, result){
+
+        console.log({
+            error:error,
+            response:result
+        });
         res.json({
             error:error,
             response:result
